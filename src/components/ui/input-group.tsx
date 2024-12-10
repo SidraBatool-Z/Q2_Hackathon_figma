@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import React, { InputHTMLAttributes } from "react";
 
@@ -23,7 +22,7 @@ const InputGroup = ({ className, children }: InputGroupProps) => {
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputTextProps>(
-  (props: InputTextProps, ref: any) => {
+  (props: InputTextProps, ref: React.Ref<HTMLInputElement>) => {
     const { className, ...rest } = props;
 
     return (
@@ -50,6 +49,12 @@ const InputGroupText = ({ className, children }: InputGroupProps) => {
   );
 };
 
+// Add display names
+InputGroup.displayName = "InputGroup";
+Input.displayName = "Input";
+InputGroupText.displayName = "InputGroupText";
+
+// Attach subcomponents
 InputGroup.Text = InputGroupText;
 InputGroup.Input = Input;
 

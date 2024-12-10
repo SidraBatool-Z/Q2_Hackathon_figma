@@ -42,7 +42,7 @@ const DressStyleSection = () => {
         </AccordionTrigger>
         <AccordionContent className="pt-4 pb-0">
           <div className="flex flex-col text-black/60 space-y-0.5">
-            {dressStylesData.map((dStyle, idx) => (
+           {dressStylesData.map((dStyle, idx) => (
               <Link
                 key={idx}
                 href={dStyle.slug}
