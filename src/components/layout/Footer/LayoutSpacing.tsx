@@ -3,11 +3,13 @@
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const LayoutSpacing = () => {
+const LayoutSpacing = (): JSX.Element | null => {
   const pathname = usePathname();
 
-  if (!pathname.includes("product")) return;
+  // Return null if the pathname does not include "product"
+  if (!pathname.includes("product")) return null;
 
+  // Return a valid JSX element if the condition is met
   return <div className="mb-20 md:mb-0" />;
 };
 

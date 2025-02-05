@@ -10,6 +10,7 @@ import Tabs from "@/components/product-page/Tabs";
 import { Product } from "@/types/product.types";
 import { notFound } from "next/navigation";
 
+// Combine all product data into a single array
 const data: Product[] = [
   ...newArrivalsData,
   ...topSellingData,
@@ -19,15 +20,30 @@ const data: Product[] = [
 export default async function ProductPage({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }) {
-  const productId = Number(params.slug[0]);
+  // Await the params object
+  const resolvedParams = await params;
 
-  const productData = data.find((product) => product.id === productId);
+  // Log resolved params for debugging
+  console.log("Resolved Params:", resolvedParams);
 
+  // Extract productId from resolvedParams.slug
+  const productId = Number(resolvedParams.slug[0]);
+
+  // Validate productId
+  if (isNaN(productId)) {
+    notFound(); // Redirect to 404 if productId is not a valid number
+  }
+
+  // Simulate asynchronous data fetching
+  const productData = await new Promise<Product | undefined>((resolve) =>
+    setTimeout(() => resolve(data.find((product) => product.id === productId)), 100)
+  );
+
+  // Redirect to 404 if product is not found
   if (!productData) {
     notFound();
-    return null; 
   }
 
   return (
